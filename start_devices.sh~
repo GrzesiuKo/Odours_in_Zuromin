@@ -1,0 +1,30 @@
+#!/bin/bash
+
+file=$1
+
+# while IFS=: read -r device location odour temp humid
+# do
+#     #Create device and start device
+#     ./create_device.sh $device
+#     ./start_device.sh $device $location $odour $temp $humid &
+# done <"$file"
+while IFS= read -r line
+do
+    IFS=':' read -ra ADDR <<< "$line"
+        
+    device=${ADDR[0]}
+    location=${ADDR[1]}
+    odour=${ADDR[2]}
+    temp=${ADDR[3]}
+    humid=${ADDR[4]}
+
+    sudo ./create_device.sh $device
+    echo "  "
+    echo "sudo ./start_device.sh $device $location $odour $temp $humid &"
+    echo "  "
+    sudo ./start_device.sh $device "$location" $odour $temp $humid &
+
+    echo "Managed device $device location $location odour $odour temp $temp humid $humid"
+
+#done < "$file"
+done < tail -n +2 "$file"
