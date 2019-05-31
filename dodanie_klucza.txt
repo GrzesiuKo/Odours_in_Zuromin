@@ -1,0 +1,6 @@
+Jak nie dziala ./start_gateway.sh
+
+1) https://console.cloud.google.com/iot/locations/us-central1/registries/gateway-registry/gateways/details/test-gateway?project=unistartappnosacze
+2) "Dodaj klucz publiczny"
+3) Klucz jest w pliku ~/rsa_cert.pem
+4) format taki jak poprzednie
