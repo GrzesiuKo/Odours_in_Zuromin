@@ -115,7 +115,7 @@ def main():
             ).encode()
 #'{\"temp\":\"{}\", \"humid\":\"{}\", \"h2s\":\"{}\", \"nh3\":\"{}\", \"lat\":\"{}\", \"lon\":{}\", \"timestamp\":\"{}\"}'.format(t, h, h2s, nh3, lat, lon, date_time)
             send_command(client_sock, message, False)
-            time.sleep(2)
+            time.sleep(10)
     finally:
         print('Closing socket')
         client_sock.close()
