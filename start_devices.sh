@@ -16,6 +16,6 @@ do
     TEMP=${ADDR[4]}
     HUMID=${ADDR[5]}
 
-    sudo ./start_device.sh $DEV $LAT $LON $H2S $NH3 $TEMP $HUMID #&
+    sudo ./start_device.sh $DEV $LAT $LON $H2S $NH3 $TEMP $HUMID &
 
 done < <(tail -n +2 "$file")
