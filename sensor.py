@@ -18,6 +18,7 @@ import sys
 import time
 import datetime
 import time
+import json
 
 from colors import bcolors
 
@@ -28,7 +29,7 @@ client_sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 server_address = (ADDR, PORT)
 
-#python ./sensor.py $DEV $LAT $LON $H2S $NH3 $TEMP $HUMID
+# python ./sensor.py $DEV $LAT $LON $H2S $NH3 $TEMP $HUMID
 
 device_id = sys.argv[1]
 lat = sys.argv[2]
@@ -56,7 +57,7 @@ def send_command(sock, message, log=True):
 def make_message(device_id, action, data=''):
     if data:
         return '{{ "device" : "{}", "action":"{}", "data" : "{}" }}'.format(
-                device_id, action, data)
+            device_id, action, data)
     else:
         return '{{ "device" : "{}", "action":"{}" }}'.format(device_id, action)
 
@@ -91,14 +92,30 @@ def main():
             nh3 = nh3_base + random.uniform(-0.01, 0.01)
 
             temperature_f = t * 0.95
-            humidity = "{:.3f}".format(h)
-            temperature = "{:.3f}".format(temperature_f)
+            h = "{:.3f}".format(h)
+            t = "{:.3f}".format(temperature_f)
             ts = time.time()
-            date_time = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
-            message = make_message(
-                device_id, 'event', 'temp={}, humid={}, h2s={}, nh3={}, lat={}, lon={}, timestamp={}'.format(t, h, h2s, nh3, lat, lon, date_time)
-                ).encode()
+            date_time = datetime.datetime.fromtimestamp(
+                ts).strftime('%Y-%m-%d %H:%M:%S')
+            data = {
+                "Latitude":lat,
+                "Longitude": lon,
+                "H2S":h2s,
+                "NH3":nh,
+                "Temperatura": t,
+                "Wilgotnosc": h,
+                "Device_id": device_id,
+                "Timestamp": date_time
+            }
 
+            data_out=json.dumps(data)
+
+            print (data)
+
+            message = make_message(
+                device_id, 'event', data
+            ).encode()
+#'{\"temp\":\"{}\", \"humid\":\"{}\", \"h2s\":\"{}\", \"nh3\":\"{}\", \"lat\":\"{}\", \"lon\":{}\", \"timestamp\":\"{}\"}'.format(t, h, h2s, nh3, lat, lon, date_time)
             send_command(client_sock, message, False)
             time.sleep(2)
     finally:
