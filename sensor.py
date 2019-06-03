@@ -110,8 +110,6 @@ def main():
 
             data_out=json.dumps(data)
 
-            print (data)
-
             message = make_message(
                 device_id, 'event', data
             ).encode()
