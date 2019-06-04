@@ -95,8 +95,8 @@ def main():
             h = "{:.3f}".format(h)
             t = "{:.3f}".format(temperature_f)
             ts = time.time()
-            date_time = datetime.datetime.fromtimestamp(
-                ts).strftime('%Y-%m-%d %H:%M:%S')
+            #date_time = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
+            date_time = int(time.time())
             data = {
                 "Latitude":lat,
                 "Longitude": lon,
