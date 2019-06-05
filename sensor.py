@@ -94,21 +94,21 @@ def main():
             temperature_f = t * 0.95
             h = "{:.3f}".format(h)
             t = "{:.3f}".format(temperature_f)
-            ts = time.time()
+            #ts = time.time()
             #date_time = datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')
             date_time = int(time.time())
             data = {
                 "Latitude":lat,
                 "Longitude": lon,
                 "H2S":h2s,
-                "NH3":nh,
+                "NH3":nh3,
                 "Temperatura": t,
                 "Wilgotnosc": h,
                 "Device_id": device_id,
                 "Timestamp": date_time
             }
 
-            data_out=json.dumps(data)
+            #data_out=json.dumps(data)
 
             message = make_message(
                 device_id, 'event', data
