@@ -19,10 +19,12 @@ import os
 import socket
 import ssl
 import time
-from time import ctime
-
 import jwt
 import paho.mqtt.client as mqtt
+
+from time import ctime
+
+
 
 
 # Hostname of '' means using the IP address of the machine.
